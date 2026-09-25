@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通缉令 · Wanted Poster 网站模板</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='none' stroke='%238b2500' stroke-width='6'/><circle cx='50' cy='50' r='30' fill='none' stroke='%238b2500' stroke-width='3'/><text x='50' y='58' font-size='24' text-anchor='middle' fill='%238b2500' font-family='serif' font-weight='bold'>W</text></svg>">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Rye&family=Special+Elite&family=Noto+Serif+SC:wght@400;600;900&display=swap">
+<style>
+/* ===== 设计变量 ===== */
+:root{
+  --wall:#1c130c;          /* 背景墙 */
+  --wall-2:#2a1d12;
+  --paper:#d8bd93;         /* 牛皮纸 */
+  --paper-dark:#b89a6e;
+  --ink:#2b1a0e;           /* 墨色 */
+  --ink-soft:#4a3421;
+  --stamp:#8b2500;         /* 印章红 */
+  --stamp-dark:#6b1c00;
+  --brass:#c9a227;         /* 铆钉黄铜 */
+  --line:#3a2614;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Special Elite','Noto Serif SC',serif;
+  background:var(--wall);
+  color:var(--paper);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* 墙面纹理 */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(139,80,40,.25), transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(60,35,15,.4), transparent 50%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 2px, transparent 2px 80px),
+    var(--wall);
+}
+/* 噪点 */
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ===== 顶部导航 ===== */
+header.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 0;border-bottom:1px dashed rgba(216,189,147,.25);
+}
+.brand{font-family:'Rye','Noto Serif SC',serif;font-size:22px;letter-spacing:2px;color:var(--paper)}
+.brand span{color:var(--stamp)}
+.nav-links{display:flex;gap:28px;font-size:14px;letter-spacing:1px}
+.nav-links a{color:var(--paper);text-decoration:none;opacity:.75;transition:opacity .2s}
+.nav-links a:hover{opacity:1;color:var(--brass)}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* ===== Hero 海报 ===== */
+.hero{
+  display:grid;grid-template-columns:1fr;justify-items:center;
+  padding:50px 0 70px;
+}
+.poster{
+  position:relative;
+  width:100%;max-width:520px;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255,240,200,.35), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(90,50,20,.25), transparent 60%),
+    linear-gradient(135deg, var(--paper) 0%, var(--paper-dark) 100%);
+  padding:46px 40px 40px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.6),
+    inset 0 0 60px rgba(80,45,15,.35);
+  transform:rotate(-1.5deg);
+  transition:transform .4s ease;
+}
+.poster:hover{transform:rotate(0deg) scale(1.01)}
+/* 撕边 */
+.poster::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  clip-path:polygon(0% 2%,1% 0%,3% 1.5%,5% .3%,8% 1.8%,12% .5%,15% 2%,20% .8%,25% 1.5%,30% .3%,35% 1.8%,40% .6%,45% 2%,50% .4%,55% 1.6%,60% .5%,65% 1.8%,70% .3%,75% 1.5%,80% .6%,85% 1.8%,90% .4%,95% 1.5%,99% 1%,100% 3%,99.5% 8%,100% 15%,99% 22%,100% 30%,99.3% 40%,100% 50%,99% 60%,100% 70%,99.4% 80%,100% 90%,98.5% 98%,95% 99%,90% 98.5%,85% 99.5%,80% 98%,75% 99.2%,70% 98.5%,65% 99.6%,60% 98.2%,55% 99.5%,50% 98%,45% 99.3%,40% 98.2%,35% 99.5%,30% 98%,25% 99.3%,20% 98.2%,15% 99.5%,10% 98%,5% 99.2%,1% 98%,0% 95%,.5% 88%,0% 80%,.8% 70%,0% 60%,.5% 50%,0% 40%,.8% 30%,0% 20%,.5% 10%,0% 5%);
+  background:transparent;
+}
+/* 污渍 */
+.poster::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(90,50,15,.4), transparent 8%),
+    radial-gradient(circle at 92% 88%, rgba(90,50,15,.35), transparent 10%),
+    radial-gradient(circle at 85% 8%, rgba(90,50,15,.3), transparent 6%);
+}
+/* 四角铆钉 */
+.rivet{
+  position:absolute;width:14px;height:14px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #f0d878, var(--brass) 45%, #6b5010 90%);
+  box-shadow:0 1px 3px rgba(0,0,0,.5), inset 0 -1px 2px rgba(0,0,0,.4);
+  z-index:2;
+}
+.rivet.tl{top:12px;left:12px}.rivet.tr{top:12px;right:12px}
+.rivet.bl{bottom:12px;left:12px}.rivet.br{bottom:12px;right:12px}
+
+/* 海报文字 */
+.want-title{
+  font-family:'Rye','Noto Serif SC',serif;
+  text-align:center;font-size:clamp(48px,12vw,84px);
+  color:var(--ink);letter-spacing:6px;line-height:1;
+  text-shadow:1px 1px 0 rgba(255,240,200,.3);
+}
+.reward{
+  text-align:center;margin:8px 0 20px;
+  font-family:'Rye','Noto Serif SC',serif;
+  font-size:clamp(20px,4vw,30px);color:var(--stamp);
+  letter-spacing:2px;
+}
+.reward b{font-size:1.3em}
+.poster-photo{
+  position:relative;margin:0 auto 18px;width:78%;
+  border:3px solid var(--ink);
+  box-shadow:0 4px 12px rgba(0,0,0,.4), inset 0 0 20px rgba(0,0,0,.3);
+  background:#000;
+}
+.poster-photo img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;filter:sepia(.3) contrast(1.05)}
+.poster-desc{
+  color:var(--ink);font-size:15px;line-height:1.9;letter-spacing:.5px;
+  border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  padding:12px 96px 12px 4px;
+}
+.poster-desc .row{display:flex;justify-content:space-between;gap:12px}
+.poster-desc .row b{font-family:'Noto Serif SC',serif}
+.poster-note{
+  text-align:center;margin-top:14px;font-size:13px;color:var(--ink-soft);font-style:italic;
+}
+/* 印章 */
+.stamp{
+  position:absolute;right:20px;bottom:18px;width:96px;height:96px;
+  border:3px double var(--stamp);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--stamp);font-family:'Rye',serif;font-size:13px;text-align:center;
+  transform:rotate(-18deg);opacity:.85;mix-blend-mode:multiply;
+  line-height:1.2;
+}
+.stamp::before{content:"";position:absolute;inset:6px;border:1px solid var(--stamp);border-radius:50%}
+.stamp span{position:relative;z-index:1}
+
+/* ===== 区块标题 ===== */
+.section{padding:60px 0 30px;text-align:center}
+.section h2{
+  font-family:'Rye','Noto Serif SC',serif;font-size:clamp(28px,6vw,44px);
+  color:var(--paper);letter-spacing:4px;
+}
+.section h2 em{color:var(--stamp);font-style:normal}
+.section p.sub{margin-top:10px;opacity:.6;font-size:14px;letter-spacing:1px}
+
+/* ===== 通缉卡片 ===== */
+.roster{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  padding:20px 0 60px;
+}
+@media(max-width:860px){.roster{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.roster{grid-template-columns:1fr}}
+.card{
+  background:linear-gradient(135deg,var(--paper),var(--paper-dark));
+  padding:22px 20px 26px;color:var(--ink);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  transition:transform .3s ease, box-shadow .3s ease;
+  position:relative;
+}
+.card:nth-child(1){transform:rotate(-1.2deg)}
+.card:nth-child(2){transform:rotate(1deg)}
+.card:nth-child(3){transform:rotate(-.6deg)}
+.card:hover{transform:rotate(0) translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.6)}
+.card .c-wanted{
+  font-family:'Rye',serif;text-align:center;font-size:26px;letter-spacing:3px;
+}
+.card .c-reward{text-align:center;color:var(--stamp);font-family:'Rye',serif;font-size:16px;margin:2px 0 12px}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover;border:2px solid var(--ink);display:block;filter:sepia(.3)}
+.card .c-name{
+  text-align:center;margin-top:12px;font-family:'Noto Serif SC',serif;
+  font-weight:900;font-size:18px;letter-spacing:2px;
+}
+.card .c-crime{text-align:center;font-size:13px;margin-top:6px;opacity:.8;line-height:1.6}
+
+/* ===== 举报 CTA ===== */
+.cta{
+  text-align:center;padding:50px 24px 80px;
+  border-top:1px dashed rgba(216,189,147,.2);
+}
+.cta h3{font-family:'Rye','Noto Serif SC',serif;font-size:clamp(24px,5vw,36px);letter-spacing:3px}
+.cta p{margin:14px 0 26px;opacity:.7;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.8}
+.btn{
+  display:inline-block;cursor:pointer;
+  font-family:'Rye','Noto Serif SC',serif;font-size:18px;letter-spacing:3px;
+  padding:16px 46px;color:var(--paper);
+  background:var(--stamp);border:2px solid var(--paper-dark);
+  box-shadow:0 6px 0 var(--stamp-dark), 0 10px 20px rgba(0,0,0,.5);
+  transition:transform .15s, box-shadow .15s;
+}
+.btn:hover{transform:translateY(2px);box-shadow:0 4px 0 var(--stamp-dark),0 6px 12px rgba(0,0,0,.5)}
+.btn:active{transform:translateY(6px);box-shadow:0 0 0 var(--stamp-dark)}
+
+/* ===== 页脚 ===== */
+footer{
+  text-align:center;padding:30px 0 40px;font-size:12px;opacity:.45;letter-spacing:1px;
+  border-top:1px dashed rgba(216,189,147,.2);
+}
+
+/* ===== Toast ===== */
+.toast{
+  position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(100px);
+  background:var(--paper);color:var(--ink);padding:14px 28px;
+  font-family:'Noto Serif SC',serif;font-size:14px;letter-spacing:1px;
+  border:2px solid var(--ink);box-shadow:0 8px 24px rgba(0,0,0,.6);
+  opacity:0;transition:all .35s ease;z-index:99;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* 入场动画 */
+@keyframes rise{from{opacity:0;transform:translateY(30px) rotate(-1.5deg)}to{opacity:1;transform:translateY(0) rotate(-1.5deg)}}
+.poster{animation:rise .8s ease-out both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- 顶部导航 -->
+  <header class="nav">
+    <div class="brand">WANTED<span>·</span>POSTER</div>
+    <nav class="nav-links">
+      <a href="#poster">主通缉令</a>
+      <a href="#roster">通缉名单</a>
+      <a href="#report">举报线索</a>
+    </nav>
+  </header>
+
+  <!-- Hero：主通缉海报 -->
+  <section class="hero" id="poster">
+    <div class="poster">
+      <span class="rivet tl"></span><span class="rivet tr"></span>
+      <span class="rivet bl"></span><span class="rivet br"></span>
+
+      <div class="want-title">WANTED</div>
+      <div class="reward"><b>$5,000</b> REWARD</div>
+
+      <div class="poster-photo">
+        <img src="assets/main.jpg" alt="头号通缉犯照片">
+      </div>
+
+      <div class="poster-desc">
+        <div class="row"><span><b>姓名 / Name</b></span><span>梁慧韬（会掏）</span></div>
+        <div class="row"><span><b>罪名 / Crime</b></span><span>私吞赃款勒索诈骗，蔑视神明（健冬）</span></div>
+        <div class="row"><span><b>身高 / Height</b></span><span> 约 160cm</span></div>
+        <div class="row"><span><b>特征 / Marks</b></span><span>戴半框眼镜，行为举止怪异，疑似人类</span></div>
+        <div class="row"><span><b>最后现身</b></span><span>16班垃圾桶</span></div>
+      </div>
+
+      <div class="poster-note">—— 死活不论 · DEAD OR ALIVE ——</div>
+
+      <div class="stamp"><span>DEAD<br>OR<br>ALIVE</span></div>
+    </div>
+  </section>
+
+  <!-- 通缉名单 -->
+  <section class="section" id="roster">
+    <h2>最新通缉<em>名单</em></h2>
+    <p class="sub">下列人员涉嫌危害世界，凡提供有效线索者均有赏</p>
+  </section>
+  <div class="wrap">
+    <div class="roster">
+      <div class="card">
+        <div class="c-wanted">WANTED</div>
+        <div class="c-reward">$1,200</div>
+        <img src="assets/suspect-1.jpg" alt="通缉犯 01">
+        <div class="c-name">黄胤齐（阴金）</div>
+        <div class="c-crime">试图逗笑神明。性别未知，16 岁上下，善易容。</div>
+      </div>
+      <div class="card">
+        <div class="c-wanted">WANTED</div>
+        <div class="c-reward">$2,500</div>
+        <img src="assets/suspect-2.jpg" alt="通缉犯 02">
+        <div class="c-name">徐子真</div>
+        <div class="c-crime">晚自习试图吓死神明。男，年长，会唱歌，疑似gay。</div>
+      </div>
+      <div class="card">
+        <div class="c-wanted">WANTED</div>
+        <div class="c-reward">$3,800</div>
+        <img src="assets/suspect-3.jpg" alt="通缉犯 03">
+        <div class="c-name">？？？</div>
+        <div class="c-crime">？？？。？？？，？？？。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 举报 CTA -->
+  <section class="cta" id="report">
+    <h3>有线索？赏金兑现</h3>
+    <p>任何关于上述人员行踪的消息都可能换来赏金。举报信息将由神（健冬）受理，严格保密。</p>
+    <button class="btn" onclick="notify()">提交线索</button>
+  </section>
+
+  <footer>
+    © 1885 神（健冬）办公室 · 本页面为演示模板，所有人物与情节均为虚构 · WANTED POSTER TEMPLATE
+  </footer>
+</div>
+
+<div class="toast" id="toast">线索通道—神明早已知晓一切</div>
+
+<script>
+function notify(){
+  var t=document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer=setTimeout(function(){t.classList.remove('show')},2600);
+}
+</script>
+</body>
+</html>
