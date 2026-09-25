@@ -127,7 +127,9 @@ header.nav{
   border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
   padding:12px 96px 12px 4px;
 }
-.poster-desc .row{display:flex;justify-content:space-between;gap:12px}
+.poster-desc .row{display:flex;gap:12px;align-items:baseline}
+.poster-desc .row>span:first-child{flex:0 0 auto;white-space:nowrap}
+.poster-desc .row>span:last-child{flex:1;text-align:right}
 .poster-desc .row b{font-family:'Noto Serif SC',serif}
 .poster-note{
   text-align:center;margin-top:14px;font-size:13px;color:var(--ink-soft);font-style:italic;
